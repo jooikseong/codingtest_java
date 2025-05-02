@@ -45,7 +45,10 @@ public class Solution {
         }
 
         for (int i = idx; i <= 10; i++) {
-            int cnt = Math.min(n, apeach[i] + 1);
+            int cnt = i == 10 ? n : apeach[i] + 1;
+            if (cnt > n) {
+                continue;
+            }
             ryan[i] = cnt;
             backtrack(n - cnt, i + 1, ryan);
             ryan[i] = 0;
