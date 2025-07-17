@@ -3,6 +3,11 @@ import java.util.Arrays;
 
 public class J04 {
 
+    public static void main(String[] args) {
+        System.out.println(Arrays.toString(solution2(new int[]{1, 2, 3, 4, 5})));
+        System.out.println(Arrays.toString(solution2(new int[]{1, 3, 2, 4, 2})));
+    }
+
     public static int[] solution(int[] answers) {
         // ❶ 수포자들의 패턴
         int[][] pattern = {
@@ -16,11 +21,14 @@ public class J04 {
         // ❸ 각 수포자의 패턴과 정답이 얼마나 일치하는지 확인
         for (int i = 0; i < answers.length; i++) {
             for (int j = 0; j < pattern.length; j++) {
-                if (answers[i] == pattern[j][i % pattern[j].length]) {
+                if (answers[i] == pattern[j][i % pattern[j].length]) { // 1 == [1][1]
                     scores[j]++;
                 }
             }
         }
+
+        System.out.println("scores = " + Arrays.toString(scores));
+
         // ❹ 가장 높은 점수 저장
         int maxScore = Arrays.stream(scores).max().getAsInt();
         // ❺ 가장 높은 점수를 가진 수포자들의 번호를 찾아서 리스트에 담음
@@ -32,6 +40,35 @@ public class J04 {
         }
 
         return answer.stream().mapToInt(Integer::intValue).toArray();
+    }
+
+    public static int[] solution2(int[] answers) {
+        int[][] pattern = {
+                {1, 2, 3, 4, 5},
+                {2, 1, 2, 3, 2, 4, 2, 5},
+                {3, 3, 1, 1, 2, 2, 4, 4, 5, 5}
+        };
+
+        int[] scores = new int[3];
+
+        for(int i = 0; i< answers.length; i++){
+            for(int j =0; j<pattern.length; j++){
+                if(answers[i] == pattern[j][i % pattern[j].length]){
+                    scores[j]++;
+                }
+            }
+        }
+
+        int maxScore = Arrays.stream(scores).max().getAsInt();
+        ArrayList<Integer> answer = new ArrayList<>();
+        for(int i=0; i<scores.length; i++){
+            if(maxScore == scores[i]){
+                answer.add(i + 1);
+            }
+        }
+
+        return answer.stream().mapToInt(Integer::intValue).toArray();
+
     }
 
 }

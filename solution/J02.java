@@ -5,8 +5,8 @@ import java.util.TreeSet;
 public class J02 {
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(solution4(new int[]{4, 2, 2, 1, 3, 4})));
-        System.out.println(Arrays.toString(solution4(new int[]{2, 1, 1, 3, 2, 5, 4})));
+        System.out.println(Arrays.toString(solution3(new int[]{4, 2, 2, 1, 3, 4})));
+        System.out.println(Arrays.toString(solution3(new int[]{2, 1, 1, 3, 2, 5, 4})));
     }
 
     // 이 부분을 변경해서 실행해보세요.
@@ -41,18 +41,5 @@ public class J02 {
 
         return Arrays.stream(result).mapToInt(Integer::intValue).toArray();
     }
-
-    private static int[] solution4(int[] arr) {
-        Integer[] result = Arrays.stream(arr)
-                .boxed()
-                .distinct()
-                .toArray(Integer[]::new);
-
-        Arrays.sort(result, Collections.reverseOrder());
-        return Arrays.stream(result).mapToInt(Integer::intValue).toArray();
-    }
-
-
-
 
 }
