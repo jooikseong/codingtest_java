@@ -1,13 +1,28 @@
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class J06 {
 
-    public int[] solution(int N, int[] stages) {
+    public static void main(String[] args) {
+        int N = 5;
+        int[] stages = {2, 1, 2, 6, 2, 4, 3, 3};
+        int[] result = solution(N, stages);
+        System.out.println(Arrays.toString(result));
+
+        N = 4;
+        int[] stages2 = {4,4,4,4,4};
+        result = solution(N, stages2);
+        System.out.println(Arrays.toString(result));
+    }
+
+    public static int[] solution(int N, int[] stages) {
         // ❶ 스테이지별 도전자 수를 구함
         int[] challenger = new int[N + 2];
         for (int i = 0; i < stages.length; i++) {
             challenger[stages[i]] += 1;
         }
+
+        System.out.println(Arrays.toString(challenger));
 
         // ❷ 스테이지별 실패한 사용자 수 계산
         HashMap<Integer, Double> fails = new HashMap<>();
@@ -27,5 +42,4 @@ public class J06 {
         // ❼ 실패율이 높은 스테이지부터 내림차순으로 정렬
         return fails.entrySet().stream().sorted((o1, o2) -> Double.compare(o2.getValue(), o1.getValue())).mapToInt(HashMap.Entry::getKey).toArray();
     }
-
 }
