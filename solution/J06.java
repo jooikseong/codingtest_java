@@ -6,12 +6,12 @@ public class J06 {
     public static void main(String[] args) {
         int N = 5;
         int[] stages = {2, 1, 2, 6, 2, 4, 3, 3};
-        int[] result = solution(N, stages);
+        int[] result = solution2(N, stages);
         System.out.println(Arrays.toString(result));
 
         N = 4;
         int[] stages2 = {4,4,4,4,4};
-        result = solution(N, stages2);
+        result = solution2(N, stages2);
         System.out.println(Arrays.toString(result));
     }
 
@@ -41,5 +41,29 @@ public class J06 {
 
         // ❼ 실패율이 높은 스테이지부터 내림차순으로 정렬
         return fails.entrySet().stream().sorted((o1, o2) -> Double.compare(o2.getValue(), o1.getValue())).mapToInt(HashMap.Entry::getKey).toArray();
+    }
+
+    public static int[] solution2(int N, int[] stages) {
+        int[] challenger = new int[N +2];
+        for (int i = 0; i < stages.length; i++) {
+            challenger[stages[i]] += 1;
+        }
+
+        HashMap<Integer, Double> fails = new HashMap<>();
+        double total = stages.length;
+
+        for(int i=1; i<=N; i++){
+            if(challenger[i] == 0){
+                fails.put(i, 0.);
+            } else {
+                fails.put(i, challenger[i] / total);
+                total -= challenger[i];
+            }
+        }
+        return fails.entrySet()
+                .stream()
+                .sorted((o1, o2) -> Double.compare(o2.getValue(), o1.getValue()))
+                .mapToInt(HashMap.Entry::getKey)
+                .toArray();
     }
 }
