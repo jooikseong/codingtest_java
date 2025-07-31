@@ -3,6 +3,14 @@ import java.util.HashMap;
 
 class J10 {
 
+    public static void main(String[] args) {
+//        System.out.println(solution2("[](){}"));
+        System.out.println(solution2("}]()[{"));
+//        System.out.println(solution2("[)(]"));
+//        System.out.println(solution2("}}}"));
+    }
+
+
     public static int solution(String s) {
         // ❶ 괄호 정보를 저장함. 코드를 간결하게 할 수 있음
         HashMap<Character, Character> map = new HashMap<>();
@@ -41,4 +49,52 @@ class J10 {
         return answer;
     }
 
+    public static int solution2(String s) {
+        HashMap<Character, Character> map = new HashMap<>();
+        map.put(')','(');
+        map.put('}','{');
+        map.put(']','[');
+
+        int n = s.length();
+        s += s;
+        System.out.println(s);
+        System.out.println("@@@@@" + n);
+        int answer = 0;
+
+        A:for(int i = 0; i < n; i++){
+            ArrayDeque<Character> stack = new ArrayDeque<>();
+            for(int j = i; j < i + n; j++) {
+                char c = s.charAt(j);
+                System.out.println("현재 문자: " + c);
+                System.out.println("현재 스택: " + stack);
+                if(map.containsValue(c)){
+                    stack.push(c);
+                    System.out.println("Push: " + c);
+                }
+                else {
+//                    if(stack.isEmpty() || !stack.pop().equals(map.get(c))){
+//                        System.out.println("스택 비어있음 -> 불일치");
+//                        continue A;
+//                    }
+                    if (stack.isEmpty()) {
+                        System.out.println("스택 비어있음");
+                        continue A;
+                    }
+
+                    Character expected = map.get(c);
+                    Character top = stack.pop();
+                    System.out.println("pop 탓나");
+                    if (!top.equals(expected)) {
+                        System.out.println("스택 불일치");
+                        continue A;
+                    }
+                }
+            }
+            if(stack.isEmpty()){
+                System.out.println("올바른 괄호열!" + i);
+                answer++;
+            }
+        }
+        return answer;
+    }
 }
