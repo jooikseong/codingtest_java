@@ -1,9 +1,16 @@
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Queue;
 
 public class J16 {
 
-    public int[] solution(int[] progresses, int[] speeds) {
+    public static void main(String[] args) {
+        int[] progresses = new int[]{93, 30, 55};
+        int[] speeds     = new int[]{ 1, 30,  5};
+        System.out.println(Arrays.toString(solution2(progresses, speeds)));
+    }
+
+    public static int[] solution(int[] progresses, int[] speeds) {
         Queue<Integer> answer = new ArrayDeque<>();
 
         int n = progresses.length;
@@ -28,6 +35,33 @@ public class J16 {
         }
 
         answer.add(count); // ❻ 마지막으로 카운트된 작업들을 함께 배포
+        return answer.stream().mapToInt(Integer::intValue).toArray();
+    }
+
+    public static int[] solution2(int[] progresses, int[] speeds) {
+        Queue<Integer> answer = new ArrayDeque<>();
+
+        int n = progresses.length;
+        int[] daysLeft = new int[n];
+        for (int i = 0; i < n; i++) {
+            daysLeft[i] = (int) Math.ceil((100.0 - progresses[i]) / speeds[i]);
+        }
+        int count = 0;
+        int maxDay = daysLeft[0];
+
+        for (int i = 0; i < n; i++) {
+            System.out.println(daysLeft[i]);
+            if(daysLeft[i] <= maxDay) {
+                count++;
+            }
+            else {
+                System.out.println("@@@@@@@@@" + count);
+                answer.add(count);
+                count = 1;
+                maxDay = daysLeft[i];
+            }
+        }
+        answer.add(count);
         return answer.stream().mapToInt(Integer::intValue).toArray();
     }
 

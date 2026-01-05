@@ -1,6 +1,22 @@
+import java.security.spec.RSAOtherPrimeInfo;
+import java.util.Arrays;
 import java.util.Stack;
 
 public class J13 {
+
+    public static void main(String[] args) {
+        J13 game = new J13();
+        int[][] board = {
+                {0, 0, 0, 0, 0},
+                {0, 0, 1, 0, 3},
+                {0, 2, 5, 0, 1},
+                {4, 2, 4, 4, 2},
+                {3, 5, 1, 3, 1}
+        };
+        int[] moves = {1, 5, 3, 5, 1, 2, 1, 4};
+        int result = game.solution(board, moves);
+        System.out.println("Result = " + result);
+    }
 
     public int solution(int[][] board, int[] moves) {
         // ❶ 각 열에 대한 스택을 생성합니다.
@@ -9,14 +25,20 @@ public class J13 {
             lanes[i] = new Stack<>();
         }
 
+        System.out.println(Arrays.toString(lanes));
+
         // ❷ board를 역순으로 탐색하며, 각 열의 인형을 lanes에 추가합니다.
         for (int i = board.length - 1; i >= 0; i--) {
             for (int j = 0; j < board[i].length; j++) {
+                System.out.println(j);
                 if (board[i][j] > 0) {
+//                    System.out.println(board[i][j]);
                     lanes[j].push(board[i][j]);
                 }
             }
         }
+
+        System.out.println(Arrays.toString(lanes));
 
         // ❸ 인형을 담을 bucket을 생성합니다.
         Stack<Integer> bucket = new Stack<>();
@@ -38,7 +60,39 @@ public class J13 {
                 }
             }
         }
+        System.out.println(bucket);
 
+        return answer;
+    }
+
+    public  int solution2(int[][] board, int[] moves) {
+        Stack<Integer>[] lanes = new Stack[board.length];
+        for (int i = 0; i < lanes.length; i++) {
+            lanes[i] = new Stack<>();
+        }
+
+        for (int i = board.length - 1; i >= 0; i--) {
+            for (int j = 0; j < board[i].length; j++) {
+                if(board[i][j] > 0){
+                    lanes[j].push(board[i][j]);
+                }
+            }
+        }
+
+        Stack<Integer> bucket = new Stack<>();
+        int answer = 0;
+        for (int move : moves) {
+            if(!lanes[move - 1].isEmpty()){
+                int doll = lanes[move -1].pop();
+
+                if(!bucket.isEmpty() && bucket.peek() == doll) {
+                    bucket.pop();
+                    answer += 2;
+                } else {
+                    bucket.push(doll);
+                }
+            }
+        }
         return answer;
     }
 
