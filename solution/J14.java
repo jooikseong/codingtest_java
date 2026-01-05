@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.Stack;
 
+// 문제14 표 편집
 public class J14 {
     public static void main(String[] args) {
         J14 j14 = new J14();

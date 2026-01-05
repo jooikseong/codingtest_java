@@ -1,5 +1,6 @@
 import java.util.Stack;
 
+// 문제 11 짝지어 제거하기
 public class J11 {
 
     public static void main(String[] args) {

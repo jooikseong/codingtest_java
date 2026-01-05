@@ -1,5 +1,6 @@
 import java.util.ArrayDeque;
 
+// 문제 15 요셰푸스 문제 모름.
 public class J15 {
 
     public static void main(String[] args) {
