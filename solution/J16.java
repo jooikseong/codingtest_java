@@ -1,6 +1,4 @@
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.Queue;
+import java.util.*;
 
 // 문제 16 기능 개발 - 큐
 public class J16 {
@@ -40,7 +38,7 @@ public class J16 {
     public static void main(String[] args) {
         int[] progresses = new int[]{93, 30, 55};
         int[] speeds     = new int[]{ 1, 30,  5};
-        System.out.println(Arrays.toString(solution2(progresses, speeds)));
+        System.out.println(Arrays.toString(solution5(progresses, speeds)));
     }
 
     public static int[] solution(int[] progresses, int[] speeds) {
@@ -88,7 +86,6 @@ public class J16 {
                 count++;
             }
             else {
-                System.out.println("@@@@@@@@@" + count);
                 answer.add(count);
                 count = 1;
                 maxDay = daysLeft[i];
@@ -97,6 +94,124 @@ public class J16 {
         answer.add(count);
         return answer.stream().mapToInt(Integer::intValue).toArray();
     }
+
+    public static int[] solution3(int[] progresses, int[] speeds) {
+        // 1. 각 작업이 며칠 걸리는지 계산해서 리스트에 담는다.
+        List<Integer> days = new ArrayList<>();
+        for (int i = 0; i < progresses.length; i++) {
+            // (100 - 현재진도) / 속도 를 계산 후 올림 처리
+            int remaining = 100 - progresses[i];
+            int day = (int) Math.ceil((double) remaining / speeds[i]);
+            days.add(day);
+        }
+
+        List<Integer> answerList = new ArrayList<>();
+
+        // 2. 첫 번째 작업의 소요 일수를 '기준일'로 잡는다.
+        int targetDay = days.get(0);
+        // 3. '현재 배포될 기능 수'를 1로 시작한다.
+        int count = 1;
+
+        // 4. 두 번째 작업부터 하나씩 확인한다.
+        for (int i = 1; i < days.size(); i++) {
+            if (days.get(i) <= targetDay) {
+                // 이번 작업이 '기준일'보다 빨리 끝나면? -> 기능 수 +1
+                count++;
+            } else {
+                // 이번 작업이 '기준일'보다 오래 걸리면?
+                // a. 지금까지의 '배포 기능 수'를 정답 리스트에 저장
+                answerList.add(count);
+                // b. 이 작업을 새로운 '기준일'로 바꾼다.
+                targetDay = days.get(i);
+                // c. '현재 배포될 기능 수'를 1로 리셋한다.
+                count = 1;
+            }
+        }
+
+        // 5. 마지막으로 남은 '배포 기능 수'를 정답 리스트에 추가한다.
+        answerList.add(count);
+
+        // List를 int[] 배열로 변환하여 반환
+        return answerList.stream().mapToInt(i -> i).toArray();
+    }
+
+    public static int[] solution4(int[] progresses, int[] speeds) {
+
+        // 1. 각 작업이 며칠 걸리는지 계산해서 배열(또는 리스트)에 담는다.
+        List<Integer> days = new ArrayList<>();
+        for (int i = 0; i < progresses.length; i++) {
+            int remaining = 100 - progresses[i];
+            int day = (int) Math.ceil(remaining / speeds[i]);
+            System.out.println(day);
+            days.add(day);
+        }
+
+        List<Integer> answerList = new ArrayList<>();
+        // 2. 첫 번째 작업의 소요 일수를 '기준일'로 잡는다.
+        int targetDay = days.get(0);
+        // 3. '현재 배포될 기능 수'를 1로 시작한다.
+        int count = 1;
+
+        // 4. 두 번째 작업부터 하나씩 확인한다:
+        for (int i = 1; i < days.size(); i++)  {
+            if(days.get(i) <= targetDay) {
+                //    - 만약 이번 작업이 '기준일'보다 빨리 끝나면? -> '현재 배포될 기능 수'를 +1 한다.
+                count++;
+            } else {
+                //    - 만약 이번 작업이 '기준일'보다 오래 걸리면? ->
+                //         a. 지금까지의 '배포 기능 수'를 정답 리스트에 저장한다.
+                answerList.add(count);
+                //         b. 이 작업을 새로운 '기준일'로 바꾼다.
+                targetDay = days.get(i);
+                //         c. '현재 배포될 기능 수'를 1로 리셋한다.
+                count = 1;
+            }
+        }
+        // 5. 마지막으로 남은 '배포 기능 수'를 정답 리스트에 추가한다.
+        answerList.add(count);
+        System.out.println(answerList);
+        return answerList.stream().mapToInt(Integer::intValue).toArray();
+    }
+
+    public static int[] solution5(int[] progresses, int[] speeds) {
+
+        // 1. 각 작업이 며칠 걸리는지 계산해서 배열(또는 리스트)에 담는다.
+        List<Integer> days = new ArrayList<>();
+        for(int i = 0; i < progresses.length; i++) {
+            int ramaining = 100 - progresses[i];
+            int day = (int) Math.ceil(ramaining / speeds[i]);
+            days.add(day);
+        }
+
+        List<Integer> answerList = new ArrayList<>();
+        // 2. 첫 번째 작업의 소요 일수를 '기준일'로 잡는다.
+        int targetDay = days.get(0);
+
+        // 3. '현재 배포될 기능 수'를 1로 시작한다.
+        int count = 1;
+
+        // 4. 두 번째 작업부터 하나씩 확인한다:
+        for( int i = 1; i<days.size(); i++) {
+            if(days.get(i) <= targetDay) {
+                //    - 만약 이번 작업이 '기준일'보다 빨리 끝나면? -> '현재 배포될 기능 수'를 +1 한다.
+                count++;
+            } else {
+                //    - 만약 이번 작업이 '기준일'보다 오래 걸리면? ->
+                //         a. 지금까지의 '배포 기능 수'를 정답 리스트에 저장한다.
+                answerList.add(count);
+                //         b. 이 작업을 새로운 '기준일'로 바꾼다.
+                targetDay = days.get(i);
+                //         c. '현재 배포될 기능 수'를 1로 리셋한다.
+                count = 1;
+            }
+        }
+
+        // 5. 마지막으로 남은 '배포 기능 수'를 정답 리스트에 추가한다.
+        answerList.add(count);
+
+        return answerList.stream().mapToInt(i -> i).toArray();
+    }
+
 
     // 1. 각 작업이 며칠 걸리는지 계산해서 배열(또는 리스트)에 담는다.
     // 2. 첫 번째 작업의 소요 일수를 '기준일'로 잡는다.
@@ -108,5 +223,4 @@ public class J16 {
     //         b. 이 작업을 새로운 '기준일'로 바꾼다.
     //         c. '현재 배포될 기능 수'를 1로 리셋한다.
     // 5. 마지막으로 남은 '배포 기능 수'를 정답 리스트에 추가한다.
-
 }
