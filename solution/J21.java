@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-// 오픈채팅방
+// 오픈채팅방 - 해시
 public class J21 {
 
     /*

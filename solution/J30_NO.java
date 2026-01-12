@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class J30 {
+public class J30_NO {
 
     public static void main(String[] args) {
         int[][] operations1 = {{0, 0, 1}, {0, 1, 2}, {1, 1, 2}};

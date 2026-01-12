@@ -1,6 +1,6 @@
 import java.util.HashSet;
 
-public class J18 {
+public class J18_NO {
 
     public static void main(String[] args) {
         System.out.println(solution(new int[]{1, 2, 3, 4, 8}, 6));

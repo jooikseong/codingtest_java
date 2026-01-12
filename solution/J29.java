@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-// 길찾기 게임?
+// 문제32 길찾기 게임 - 트리
 public class J29 {
 
     // ❶ Node 클래스 정의
