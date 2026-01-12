@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class J43 {
+public class J43_NO {
 
     public static void main(String[] args) {
         System.out.println(solution(5));

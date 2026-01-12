@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class J44 {
+public class J44_NO {
 
     public static void main(String[] args) {
         int[][] board1 = {

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class J34 {
+public class J34_NO {
 
     public static void main(String[] args) {
         int[][] graph1 = {{1, 2}, {2, 3}, {3, 4}, {4, 5}};
