@@ -1,4 +1,4 @@
-public class J50 {
+public class J50_NO {
 
     public static void main(String[] args) {
         System.out.println(solution("hello"));

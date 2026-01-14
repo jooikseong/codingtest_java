@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class J58 {
+public class J58_NO {
 
     public boolean solution(String[] phone_book) {
         // ❶ 전화번호부 정렬

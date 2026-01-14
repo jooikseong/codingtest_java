@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class J60 {
+public class J60_NO {
 
     public static void main(String[] args) {
         int[][] matrix1_1 = {

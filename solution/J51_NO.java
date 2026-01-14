@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class J51 {
+public class J51_NO {
 
     public static void main(String[] args) {
         System.out.println(Arrays.toString(solution(new int[]{1, 3, 5}, new int[]{2, 4, 6})));
