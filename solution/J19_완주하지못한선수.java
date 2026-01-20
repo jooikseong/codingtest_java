@@ -1,7 +1,7 @@
 import java.util.HashMap;
 
 // 문제 20 완주하지 못한 선수 - 해시
-public class J19 {
+public class J19_완주하지못한선수 {
     /*
     문제 설명
     수많은 마라톤 선수들이 마라톤에 참여하였습니다. 단 한 명의 선수를 제외하고는 모든 선수가 마라톤을 완주하였습니다.
@@ -29,7 +29,15 @@ public class J19 {
     "mislav"는 참여자 명단에는 두 명이 있지만, 완주자 명단에는 한 명밖에 없기 때문에 한명은 완주하지 못했습니다.
     * */
 
-    public String solution(String[] participant, String[] completion) {
+    public static void main(String[] args) {
+        String[] participant = {"leo", "kiki", "eden"};
+        String[] completion = new String [] {"eden", "kiki"};
+        System.out.println(solution4(participant, completion));
+        System.out.println(solution4(new String[]{"marina", "josipa", "nikola", "vinko", "filipa"}, new String[]{"josipa", "filipa", "marina", "nikola"}));
+        System.out.println(solution4(new String[]{"mislav", "stanko", "mislav", "ana"}, new String[]{"stanko", "ana", "mislav"}));
+    }
+
+    public static String solution(String[] participant, String[] completion) {
         // ❶ 해시맵 생성
         HashMap<String, Integer> hashMap = new HashMap<>();
         // ❷ 완주한 선수들의 이름을 해시맵에 저장
@@ -48,5 +56,42 @@ public class J19 {
 
         return null;
     }
+    public static String solution2(String[] participant, String[] completion) {
+        HashMap<String, Integer> map = new HashMap<>();
+        // 참가자 추가 (+1)
+        for (String p : participant) map.put(p, map.getOrDefault(p,0) + 1);
+        // 완주자 제거 (-1)
+        for (String c : completion) map.put(c, map.get(c) -1);
+        // 결과 찾기
+        for (String key : map.keySet()){
+            if (map.get(key) != 0) return key;
+        }
+        return "";
+    }
+
+    public static String solution3(String[] participant, String[] completion) {
+        HashMap<String, Integer> map = new HashMap<>();
+        for (String p : participant) map.put(p, map.getOrDefault(p, 0) + 1);
+        for (String c : completion) map.put(c, map.get(c) -1);
+        for (String key : map.keySet()) {
+            if(map.get(key) != 0) {
+                return key;
+            }
+        }
+        return null;
+    }
+
+    public static String solution4(String[] participant, String[] completion) {
+        HashMap<String, Integer> map = new HashMap<>();
+        for(String p : participant) map.put(p, map.getOrDefault(p, 0 ) + 1);
+        for(String c : completion) map.put(c, map.get(c) - 1);
+        for(String key : map.keySet()) {
+            if(map.get(key) != 0) {
+                return key;
+            }
+        }
+        return null;
+    }
+
 
 }

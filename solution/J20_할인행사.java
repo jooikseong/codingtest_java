@@ -1,7 +1,7 @@
 import java.util.HashMap;
 
 // 할인 행사 - 해시
-public class J20 {
+public class J20_할인행사 {
     /*
     문제 설명
     XYZ 마트는 일정한 금액을 지불하면 10일 동안 회원 자격을 부여합니다. XYZ 마트에서는 회원을 대상으로 매일 한 가지 제품을 할인하는 행사를 합니다. 할인하는 제품은 하루에 하나씩만 구매할 수 있습니다. 알뜰한 정현이는 자신이 원하는 제품과 수량이 할인하는 날짜와 10일 연속으로 일치할 경우에 맞춰서 회원가입을 하려 합니다.
@@ -29,8 +29,12 @@ public class J20 {
 
     사과가 할인하는 날이 없으므로 0을 return 합니다.
     * */
+    public static void main(String[] args) {
+        System.out.println(soulution4(new String[]{"banana", "apple", "rice", "pork", "pot"}, new int[]{3, 2, 2, 2, 1}, new String[]{"chicken", "apple", "apple", "banana", "rice", "apple", "pork", "banana", "pork", "rice", "pot", "banana", "apple", "banana"}));
+        System.out.println(soulution4(new String[]{"apple"}, new int[]{10}, new String[]{"banana", "banana", "banana", "banana", "banana", "banana", "banana", "banana", "banana", "banana"}));
+    }
 
-    public int solution(String[] want, int[] number, String[] discount) {
+    public static int solution(String[] want, int[] number, String[] discount) {
         // ❶ want, number배열의 값을 해시맵에 저장
         HashMap<String, Integer> wantMap = new HashMap<>();
         for (int i = 0; i < want.length; i++) {
@@ -55,8 +59,53 @@ public class J20 {
             if (discount10d.equals(wantMap))
                 answer++;
         }
+        return answer;
+    }
 
+    public static int solution2(String[] want, int[] number, String[] discount) {
+        int answer = 0;
 
+        // 1. 내가 원하는 제품과 수량을 Map에 저장
+        HashMap<String, Integer> wantMap = new HashMap<>();
+        for(int i = 0; i < want.length; i++) {
+            wantMap.put(want[i], number[i]);
+        }
+
+        // 2. 할인 기간 전체를 탐색 (10일씩 끊어서)
+        // discount.length - 9 까지만 도는 이유는 10일 연속을 보장하기 위함
+        for (int i = 0; i <= discount.length - 10; i++) {
+            HashMap<String, Integer> discountMap = new HashMap<>();
+
+            // 3. 현재 날짜(i)부터 10일 동안의 할인 품목 수량을 카운트
+            for (int j = i; j < i + 10; j++) {
+                discountMap.put(discount[j], discountMap.getOrDefault(discount[j], 0) + 1);
+            }
+
+            // 4. 내가 원하는 map과 현재 10일간의 map이 같은지 확인
+            if (discountMap.equals(wantMap)) {
+                answer++;
+            }
+        }
+        return answer;
+    }
+
+    public static int soulution4(String[] want, int[] number, String[] discount) {
+        int answer = 0;
+        HashMap<String, Integer> wantMap = new HashMap<>();
+        for( int i = 0; i < want.length; i++ ) {
+            wantMap.put(want[i], number[i]);
+        }
+
+        for ( int i = 0;  i <= discount.length - 10; i++ ) {
+            HashMap<String, Integer> discountMap = new HashMap<>();
+
+            for( int j = i; j < i + 10; j++ ) {
+                discountMap.put(discount[j], discountMap.getOrDefault(discount[j], 0 ) + 1);
+            }
+            if(discountMap.equals(wantMap)) {
+                answer++;
+            }
+        }
         return answer;
     }
 
