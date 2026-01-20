@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class J78 {
+public class J78_NO {
 
     public static void main(String[] args) {
         int[][] items1 = {{10, 19}, {7, 10}, {6, 10}};

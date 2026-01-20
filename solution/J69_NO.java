@@ -1,4 +1,4 @@
-public class J69 {
+public class J69_NO {
 
     public static void main(String[] args) {
         int[][] arr1 = {{1, 3, 3, 2}, {2, 1, 4, 1}, {1, 5, 2, 3}};

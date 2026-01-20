@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class J68 {
+public class J68_NO {
 
     public static void main(String[] args) {
         System.out.println(lis(new int[]{1, 4, 2, 3, 1, 5, 7, 3}));

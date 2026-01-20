@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class J77 {
+public class J77_NO {
 
     public static void main(String[] args) {
         System.out.println(Arrays.toString(solution(123)));

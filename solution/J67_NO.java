@@ -1,4 +1,4 @@
-public class J67 {
+public class J67_NO {
 
     public static void main(String[] args) {
         System.out.println(solution("ABCBDAB", "BDCAB"));
